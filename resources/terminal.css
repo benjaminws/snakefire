@@ -76,6 +76,10 @@ a:hover {
     font-weight: bold;
 }
 
+.author img {
+  display: none;
+}
+
 .author.self {
     color: #c0c0c0;
 }

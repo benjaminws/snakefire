@@ -79,6 +79,10 @@ a:hover {
     color: #000080;
 }
 
+.author img {
+  display: none;
+}
+
 .topic .new_topic {
     font-weight: bold;
 }

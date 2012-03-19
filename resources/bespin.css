@@ -80,6 +80,10 @@ a:hover {
     color: #268bd2;
 }
 
+.author img {
+  display: none;
+}
+
 .topic .new_topic {
     font-weight: bold;
 }

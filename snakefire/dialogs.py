@@ -282,6 +282,7 @@ class OptionsDialog(QtGui.QDialog):
             "show_join_message": self._showJoinMessageField.isChecked(),
             "show_part_message": self._showPartMessageField.isChecked(),
             "show_message_timestamps": self._showMessageTimestampsField.isChecked(),
+            "show_avatars": self._showAvatarsField.isChecked()
         }
 
         self._mainFrame.setSettings("connection", connectionSettings)
@@ -333,16 +334,15 @@ class OptionsDialog(QtGui.QDialog):
 
         messages = [
             MessageRenderer.MESSAGES['join'].format(user='John Doe', room='Snakefire'),
-            MessageRenderer.MESSAGES['message_self'].format(time='3:33 pm', user='John Doe', message='Hey everyone!'),
-            MessageRenderer.MESSAGES['message_self'].format(time='3:33 pm', user='John Doe', message='How are you all doing?'),
-            MessageRenderer.MESSAGES['alert'].format(time='3:34 pm', user='Jane Doe', message='Hi John Doe! Nice to see you here'),
+            MessageRenderer.MESSAGES['message_self'].format(time='3:33 pm', user='John Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message='Hey everyone!'),
+            MessageRenderer.MESSAGES['message_self'].format(time='3:33 pm', user='John Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message='How are you all doing?'),
+            MessageRenderer.MESSAGES['alert'].format(time='3:34 pm', user='Jane Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message='Hi John Doe! Nice to see you here'),
             MessageRenderer.MESSAGES['tweet'].format(url_user='#', user='@mgiglesias', url='#', message='Hello world from twitter :)'),
-            MessageRenderer.MESSAGES['message_self'].format(time='3:35 pm', user='John Doe', message='Look at this method:'),
+            MessageRenderer.MESSAGES['message_self'].format(time='3:35 pm', user='John Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message='Look at this method:'),
             MessageRenderer.MESSAGES['paste'].format(message='def hello(self):<br />  print "Hello World"'),
             MessageRenderer.MESSAGES['topic'].format(user='Jane Doe', topic='Testing Snakefire, and loving it'),
-            MessageRenderer.MESSAGES['message'].format(time='3:36 pm', user='Jane Doe', message='Looks good. Now look at this upload:'),
-            MessageRenderer.MESSAGES['message'].format(time='3:36 pm', user='Jane Doe',
-                message = MessageRenderer.MESSAGES['upload'].format(url='#', name='my_upload.tar.gz')
+            MessageRenderer.MESSAGES['message'].format(time='3:36 pm', user='Jane Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message='Looks good. Now look at this upload:'),
+            MessageRenderer.MESSAGES['message'].format(time='3:36 pm', user='Jane Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message = MessageRenderer.MESSAGES['upload'].format(url='#', name='my_upload.tar.gz')
             )
         ]
 
@@ -350,8 +350,8 @@ class OptionsDialog(QtGui.QDialog):
         buffer = QtCore.QBuffer()
         if buffer.open(QtCore.QIODevice.WriteOnly) and image.save(buffer, 'PNG'):
             messages.extend([
-                MessageRenderer.MESSAGES['message_self'].format(time='3:38 pm', user='John Doe', message='Look at this image:'),
-                MessageRenderer.MESSAGES['message_self'].format(time='3:38 pm', user='John Doe', message=MessageRenderer.MESSAGES['image'].format(
+                MessageRenderer.MESSAGES['message_self'].format(time='3:38 pm', user='John Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message='Look at this image:'),
+                MessageRenderer.MESSAGES['message_self'].format(time='3:38 pm', user='John Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message=MessageRenderer.MESSAGES['image'].format(
                     url = '#',
                     type = 'image/png',
                     data = buffer.data().toBase64().data(),
@@ -362,7 +362,7 @@ class OptionsDialog(QtGui.QDialog):
 
         messages.extend([
             MessageRenderer.MESSAGES['leave'].format(user='Jane Doe', room='Snakefire'),
-            MessageRenderer.MESSAGES['message_self'].format(time='3:37 pm', user='John Doe', message='I guess I am all alone now :('),
+            MessageRenderer.MESSAGES['message_self'].format(time='3:37 pm', user='John Doe', user_avatar='<img src="https://asset0.37img.com/global/.../avatar.png" title="user">', message='I guess I am all alone now :('),
         ])
 
         self._themePreview.page().mainFrame().setHtml("\n".join(messages))
@@ -516,11 +516,13 @@ class OptionsDialog(QtGui.QDialog):
         self._showJoinMessageField = QtGui.QCheckBox(self._mainFrame._("Show &join messages"), self)
         self._showPartMessageField = QtGui.QCheckBox(self._mainFrame._("Show p&art messages"), self)
         self._showMessageTimestampsField = QtGui.QCheckBox(self._mainFrame._("Show message &timestamps"), self)
+        self._showAvatarsField = QtGui.QCheckBox(self._mainFrame._("Show user a&vatars (only supported by certain themes)"), self)
 
         eventsGrid = QtGui.QGridLayout()
         eventsGrid.addWidget(self._showJoinMessageField, 1, 0)
         eventsGrid.addWidget(self._showPartMessageField, 2, 0)
         eventsGrid.addWidget(self._showMessageTimestampsField, 3, 0)
+        eventsGrid.addWidget(self._showAvatarsField, 4, 0)
 
         eventsGroupBox = QtGui.QGroupBox(self._mainFrame._("Display events"))
         eventsGroupBox.setLayout(eventsGrid)
@@ -595,6 +597,7 @@ class OptionsDialog(QtGui.QDialog):
         self._showJoinMessageField.setChecked(displaySettings["show_join_message"])
         self._showPartMessageField.setChecked(displaySettings["show_part_message"])
         self._showMessageTimestampsField.setChecked(displaySettings["show_message_timestamps"])
+        self._showAvatarsField.setChecked(displaySettings["show_avatars"])
 
         self._setupThemesUI(displaySettings)
 

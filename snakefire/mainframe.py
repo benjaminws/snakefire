@@ -143,7 +143,8 @@ class Snakefire(object):
                 "size": 100,
                 "show_join_message": True,
                 "show_part_message": True,
-                "show_message_timestamps": True
+                "show_message_timestamps": True,
+                "show_avatars": True
             },
             "alerts": {
                 "notify_ping": True,
@@ -185,7 +186,7 @@ class Snakefire(object):
                 elif group == "program":
                     boolSettings += ["away", "minimize"]
                 elif group == "display":
-                    boolSettings += ["show_join_message", "show_part_message", "show_message_timestamps"]
+                    boolSettings += ["show_join_message", "show_part_message", "show_message_timestamps", "show_avatars"]
                 elif group == "alerts":
                     boolSettings += ["notify_ping", "notify_inactive_tab", "notify_blink", "notify_notify"]
 
@@ -497,6 +498,7 @@ class Snakefire(object):
             live=live,
             updateRoom=updateRoom,
             showTimestamps = self.getSetting("display", "show_message_timestamps"),
+            showAvatars = self.getSetting("display", "show_avatars"),
             alert=alert,
             alertIsDirectPing=alertIsDirectPing,
             parent=self

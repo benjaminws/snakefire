@@ -15,5 +15,6 @@
 	<file>bespin.css</file>
 	<file>solarized.css</file>
 	<file>terminal.css</file>
+	<file>campfire.css</file>
 </qresource>
 </RCC>
