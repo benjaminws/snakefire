@@ -86,6 +86,7 @@ a:hover {
 }
 
 .author img {
+    margin-left: 50px;
     display: block;
     float: right;
 }
@@ -96,9 +97,10 @@ a:hover {
 }
 
 .author.self {
+
 }
 
 .topic .new_topic {
   
   
-  }
+}
